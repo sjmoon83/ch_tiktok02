@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/nav_tab.dart';
-import 'package:tiktok_clone/features/name_navigation/widgets/post_video_button.dart';
+import 'package:tiktok_clone/features/name_navigation/widgets/write_screen.dart';
 import 'package:tiktok_clone/features/users/user_profile_screen.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
 
@@ -26,12 +25,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void _onPostVideoButtonTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
-          builder: (context) => Scaffold(
-                appBar: AppBar(
-                  title: const Text('Record video'),
-                ),
-              ),
-          fullscreenDialog: true),
+          builder: (context) => const WriteScreen(), fullscreenDialog: true),
     );
   }
 
@@ -46,6 +40,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 1,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 2,
             child: Container(),
           ),
           Offstage(
@@ -68,32 +66,30 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               NavTab(
-                text: "Home",
                 isSelected: _selectedIndex == 0,
                 icon: FontAwesomeIcons.house,
                 selectedIcon: FontAwesomeIcons.house,
                 onTap: () => _onTap(0),
               ),
               NavTab(
-                text: "Discover",
                 isSelected: _selectedIndex == 1,
-                icon: FontAwesomeIcons.compass,
-                selectedIcon: FontAwesomeIcons.solidCompass,
+                icon: FontAwesomeIcons.magnifyingGlass,
+                selectedIcon: FontAwesomeIcons.magnifyingGlassPlus,
                 onTap: () => _onTap(1),
               ),
-              Gaps.h24,
-              GestureDetector(
-                  onTap: _onPostVideoButtonTap, child: const PostVideoButton()),
-              Gaps.h24,
               NavTab(
-                text: "Inbox",
+                isSelected: _selectedIndex == 2,
+                icon: FontAwesomeIcons.penToSquare,
+                selectedIcon: FontAwesomeIcons.solidPenToSquare,
+                onTap: () => _onPostVideoButtonTap(),
+              ),
+              NavTab(
                 isSelected: _selectedIndex == 3,
-                icon: FontAwesomeIcons.message,
-                selectedIcon: FontAwesomeIcons.solidMessage,
+                icon: FontAwesomeIcons.heart,
+                selectedIcon: FontAwesomeIcons.solidHeart,
                 onTap: () => _onTap(3),
               ),
               NavTab(
-                text: "Profile",
                 isSelected: _selectedIndex == 4,
                 icon: FontAwesomeIcons.user,
                 selectedIcon: FontAwesomeIcons.solidUser,
